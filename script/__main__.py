@@ -14,8 +14,8 @@ document = read(filename)
 
 # convert the top anonymous section into a dict
 header = ""  # anonymous section
-section = document.get(header, index=0)  # by default, index is -1 (more below)
-dict_data = section.make_dict(strict=False)  # arg set to preserve comments
+section = document.get(header)  # by default, sub_index is 0 (more below)
+dict_data = section.to_dict(strict=False)  # arg set to preserve comments
 
 # print the body of the section
 print("\nTHIS IS THE BODY OF THE SECTION")
@@ -31,11 +31,9 @@ pprint.pprint(dict_data)
 
 
 
-# NOTE: the get method of the document object accept the index argument
+# NOTE: the get method of the document object accept the sub_index argument
 # to specify what section to return when many sections share the same
-# header. By default, for pragmatic reasons, index is set to -1.
+# header. By default, for pragmatic reasons, index is set to 0.
 # Therefore when a section is the only one to have a given header,
 # it will still be returned. And in the case of multiple sections
-# sharing same header, the last of them will be returned.
-# By setting index to 0, I explicitly ask for the very first anonymous
-# section in the document, i.e., the first section with an empty header.
+# sharing same header, the first of them will be returned.
